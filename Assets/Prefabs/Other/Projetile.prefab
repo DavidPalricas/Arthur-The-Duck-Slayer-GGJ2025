@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6c9f16533d6ef46b069b8039ef3606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 10
   playerThrown: 0
   attackDirection: {x: 0, y: 0}
 --- !u!50 &-9080575908431055524
