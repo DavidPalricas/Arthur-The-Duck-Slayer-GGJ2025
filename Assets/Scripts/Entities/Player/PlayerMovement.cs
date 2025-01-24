@@ -17,10 +17,15 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
 
     /// <summary>
-    /// The speed property is responsible for storing the player's speed.
+    /// The speedVector property is responsible for storing the player's movement vector.
     /// </summary>
     [HideInInspector]
     public Vector2 speedVector;
+
+    private float dashCoolDown = 1f; 
+    private readonly float dashDuration = 0.2f; 
+    private bool isDashing = false;
+    private float dashTimer = 0f; 
 
     /// <summary>
     /// The Start method is called before the first frame update (Unity Method).
@@ -28,12 +33,30 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         player = GetComponent<Rigidbody2D>();
-
         speed = GetComponent<Entity>().speed;
 
         EntityFSM entityFSM = GetComponent<Player>().entityFSM;
-
         entityFSM.ChangeState(new EntityIdleState(entityFSM));
+    }
+
+    private void Update()
+    {
+        if (!isDashing && dashCoolDown < 1f)
+        {
+            dashCoolDown += Time.deltaTime;
+            dashCoolDown = Mathf.Clamp(dashCoolDown, 0, 2f);
+        }
+
+        if (isDashing)
+        {
+            dashTimer += Time.deltaTime;
+
+            if (dashTimer >= dashDuration)
+            {
+                isDashing = false; 
+                dashTimer = 0f;
+            }
+        }
     }
 
     /// <summary>
@@ -41,11 +64,18 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void MovePlayer()
     {
-        // Create a movement vector and normalize it
-        speedVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        speedVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
-        // Apply velocity directly to the Rigidbody2D
-        player.velocity = speed * speedVector;
+        if (Input.GetKey(KeyCode.LeftShift) && dashCoolDown >= 1f && speedVector != Vector2.zero && !isDashing)
+        {
+            isDashing = true; 
+            dashCoolDown = 0f; 
+            player.velocity = 4 * speed * speedVector; 
+        }
+        else if (!isDashing)
+        {
+            player.velocity = speed * speedVector;
+        }
     }
 
     /// <summary>
