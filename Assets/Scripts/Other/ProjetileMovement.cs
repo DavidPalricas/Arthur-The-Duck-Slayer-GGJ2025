@@ -97,7 +97,7 @@ public class ProjetileMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<BoxCollider2D>());
 
             return false;
         }
@@ -125,7 +125,7 @@ public class ProjetileMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<BoxCollider2D>());
             return false;
         }
 
