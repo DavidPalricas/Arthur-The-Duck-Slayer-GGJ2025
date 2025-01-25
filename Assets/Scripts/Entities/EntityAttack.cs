@@ -76,7 +76,7 @@ public class EntityAttack : MonoBehaviour
             {
                 player.lazerUsed = false;
 
-                if (currentLazerCoolDown == LAZERCOOLDOWN)
+                if (currentLazerCoolDown >= LAZERCOOLDOWN)
                 {
                     LazerAttack(attackDirection, attackCoolDown);
                     currentLazerCoolDown = 0f;
@@ -137,6 +137,9 @@ public class EntityAttack : MonoBehaviour
         LayerMask playerLayer = LayerMask.GetMask("Default");
 
         RaycastHit2D[] hits = Physics2D.BoxCastAll(raycastOrigin, raycastSize, 0f, attackDirection, lazer.transform.localScale.x, playerLayer);
+        
+        AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        audioManager.PlaySFX(audioManager.laser);
 
         foreach (RaycastHit2D hit in hits)
         {
@@ -151,7 +154,7 @@ public class EntityAttack : MonoBehaviour
                 else if (hit.collider.CompareTag("Object"))
                 {
                     HandleAttackCooldown(attackCoolDown);
-                    Destroy(newLazer);
+                    Destroy(newLazer, 0.05f);
                     return;
                 }
             }

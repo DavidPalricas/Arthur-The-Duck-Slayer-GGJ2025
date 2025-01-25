@@ -93,8 +93,11 @@ public class EntityIdleState : EntityStateBase
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            entityFSM.ChangeState(new EntityAttackState(entityFSM));
+            AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+            audioManager.PlaySFX(audioManager.shoot);
 
+            entityFSM.ChangeState(new EntityAttackState(entityFSM));
+            return;
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
