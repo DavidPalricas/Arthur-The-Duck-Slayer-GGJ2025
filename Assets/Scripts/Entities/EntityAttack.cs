@@ -145,6 +145,7 @@ public class EntityAttack : MonoBehaviour
                 else if (hit.collider.CompareTag("Object"))
                 {
                     HandleAttackCooldown(attackCoolDown);
+                    Destroy(newLazer, 0.1f);
                     return;
                 }
             }
