@@ -135,6 +135,8 @@ public class ProjetileMovement : MonoBehaviour
 
             int attackDamage = (int)player.attackDamage;
             player.entityFSM.entitycurrentHealth -= attackDamage;
+
+            player.healthBar.PlayerTookDamaged(player.entityFSM.entitycurrentHealth);
         }
 
         return true;

@@ -18,6 +18,8 @@ public class Player : Entity
     [HideInInspector]
     public PlayerMovement movement;
 
+    public HealthBar healthBar;
+
     /// <summary>
     /// The Start method is called before the first frame update (Unity Method).
     /// In this method, we are setting the player's spawn point, and initializing the player's attributes.
@@ -30,9 +32,13 @@ public class Player : Entity
         attack = GetComponent<EntityAttack>();
         entityRigidBody = GetComponent<Rigidbody2D>();
 
+        healthBar.SetHealthBar(maxHealth);
+
         entityFSM.entityProprieties = this;
 
         entityFSM.entitycurrentHealth = maxHealth;
       
     }
+
+    
 }

@@ -100,6 +100,8 @@ public class EntityDeadState : EntityStateBase
 
             player.entityRigidBody.transform.position = player.spawnPoint;
 
+            player.healthBar.SetHealthBar(player.maxHealth);
+
             entityFSM.ChangeState(new EntityIdleState(entityFSM));
         }));
     }
