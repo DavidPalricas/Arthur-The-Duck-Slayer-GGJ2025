@@ -15,6 +15,8 @@ public class BubbleHeatlhTrigger : MonoBehaviour
 
             if (playerCurrentHealth < playerProprieties.maxHealth)
             {
+                AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+                audioManager.PlaySFX(audioManager.heal);
                 playerFSM.entitycurrentHealth = playerProprieties.maxHealth;
 
                 playerProprieties.healthBar.UpdateHealth(playerFSM.entitycurrentHealth);

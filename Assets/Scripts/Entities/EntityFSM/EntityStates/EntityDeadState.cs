@@ -4,6 +4,9 @@ using UnityEngine;
 /// The EntityDeadState class is responsible for handling the logic of the dead state of the entity.
 /// An entity can be an enemy or the player.+
 /// </summary>
+
+
+
 public class EntityDeadState : EntityStateBase
 {
     /// <summary>
@@ -80,7 +83,9 @@ public class EntityDeadState : EntityStateBase
     /// It increments the number of deaths of the player and calls the RespawnPlayer  method to respawn the player.
     /// </summary>
     protected override void ExecutePlayerLogic()
-    {  
+    {
+        AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        audioManager.PlaySFX(audioManager.death);
         RespawnPlayer();
     }
 
