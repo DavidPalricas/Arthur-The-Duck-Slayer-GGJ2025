@@ -11,6 +11,9 @@ public class EntityAttack : MonoBehaviour
     [SerializeField]
     private GameObject projetile, lazer;
 
+    [SerializeField]
+    private LazerCoolDownLabel lazerCoolDownLabel;
+
     [HideInInspector]
     public bool attacking;
 
@@ -20,18 +23,23 @@ public class EntityAttack : MonoBehaviour
 
     private float currentLazerCoolDown = LAZERCOOLDOWN ;
 
-
     private void Awake()
     {
         player = GetComponent<Player>();
+
+        if (player != null)
+        {
+            lazerCoolDownLabel.SetCoolDown(LAZERCOOLDOWN);
+        } 
     }
 
     private void Update()
     {
-        if (player != null && currentLazerCoolDown < 2f)
+        if (player != null && currentLazerCoolDown < LAZERCOOLDOWN)
         {
             currentLazerCoolDown += Time.deltaTime;
             currentLazerCoolDown = Mathf.Clamp(currentLazerCoolDown, 0, LAZERCOOLDOWN);
+            lazerCoolDownLabel.UpdateCoolDown(currentLazerCoolDown);
         }
     }
     /// <summary>
