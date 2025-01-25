@@ -14,14 +14,11 @@ public class EntityAttack : MonoBehaviour
     [HideInInspector]
     public bool attacking;
 
-
     private Player player;
 
+    private const float LAZERCOOLDOWN = 30f;
 
-    private float currentLazerCoolDown;
-
-
-    private const float LAZERCOOLDOWN = 2f;
+    private float currentLazerCoolDown = LAZERCOOLDOWN ;
 
 
     private void Awake()
@@ -34,7 +31,7 @@ public class EntityAttack : MonoBehaviour
         if (player != null && currentLazerCoolDown < 2f)
         {
             currentLazerCoolDown += Time.deltaTime;
-            currentLazerCoolDown = Mathf.Clamp(LAZERCOOLDOWN, 0, 2f);
+            currentLazerCoolDown = Mathf.Clamp(currentLazerCoolDown, 0, LAZERCOOLDOWN);
         }
     }
     /// <summary>
@@ -110,33 +107,34 @@ public class EntityAttack : MonoBehaviour
 
     private void LazerAttack(Vector2 attackDirection, float attackCoolDown)
     {
-        float rayCastDistance = lazer.transform.localScale.x;
-
-        BoxCollider2D playerCollider = player.GetComponent<BoxCollider2D>();
-
-        // Calcula a posição na borda do collider do jogador, na direção do ataque
-        Vector3 lazerPosition = playerCollider.bounds.center + (Vector3)(attackDirection.normalized * (playerCollider.bounds.extents.magnitude));
-
-        // Cria o novo laser na posição ajustada
+        float lazerWidth = lazer.transform.localScale.x;
+        float lazerHeight = lazer.transform.localScale.y;
+        Vector2 lazerPosition = (Vector2)player.transform.position + (attackDirection * lazerWidth / 1.8f);
         GameObject newLazer = Instantiate(lazer, lazerPosition, Quaternion.identity);
-
-        // Define a rotação do laser
         SetLazerRotation(newLazer, attackDirection);
 
-        Vector2 raycastOrigin = (Vector2)lazerPosition;
+        Vector2 raycastOrigin =lazerPosition;
+
+        Vector2 raycastSize;
+
+        if (attackDirection == Vector2.up || attackDirection == Vector2.down)
+        {
+            raycastSize = new Vector2(lazerHeight, lazerWidth);
+        }
+        else
+        {
+            raycastSize = new Vector2(lazerWidth, lazerHeight);
+        }
 
         LayerMask playerLayer = LayerMask.GetMask("Default");
 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(raycastOrigin, attackDirection, rayCastDistance, playerLayer);
-
-        // Linha para debug visual
-        Debug.DrawRay(raycastOrigin, attackDirection.normalized * rayCastDistance, Color.blue);
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(raycastOrigin, raycastSize, 0f, attackDirection, lazer.transform.localScale.x, playerLayer);
 
         foreach (RaycastHit2D hit in hits)
         {
-            Debug.Log(hit.collider);
             if (hit.collider != null)
             {
+                Debug.Log(hit.collider);
                 if (hit.collider.CompareTag("Enemy"))
                 {
                     Debug.Log("Enemy hit");
@@ -145,21 +143,18 @@ public class EntityAttack : MonoBehaviour
                 else if (hit.collider.CompareTag("Object"))
                 {
                     HandleAttackCooldown(attackCoolDown);
-                    Destroy(newLazer, 0.1f);
+                    Destroy(newLazer);
                     return;
                 }
             }
         }
 
         Destroy(newLazer, 0.1f);
-
         HandleAttackCooldown(attackCoolDown);
     }
 
-
-
     private void SetLazerRotation(GameObject newLazer,Vector2 attackDirection)
-    {
+{
         if (attackDirection == Vector2.up)
         {
             newLazer.transform.rotation = Quaternion.Euler(0, 0, -90);
