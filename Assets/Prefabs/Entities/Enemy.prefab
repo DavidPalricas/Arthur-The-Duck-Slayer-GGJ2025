@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.8926393, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -187,7 +187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5231a2f857b16c94ea53d6e6dd52d73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projetile: {fileID: 4167012426717843661, guid: df0cb3f6d45c5f542bc14953dd30776b, type: 3}
+  projetile: {fileID: 4167012426717843661, guid: 1d5852faad7a78a4da3fd26c03b94c72, type: 3}
+  lazer: {fileID: 0}
   attacking: 0
 --- !u!114 &2553013250733268583
 MonoBehaviour:
