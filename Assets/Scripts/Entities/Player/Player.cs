@@ -18,6 +18,7 @@ public class Player : Entity
     [HideInInspector]
     public PlayerMovement movement;
 
+    public HealthBar healthBar;
 
     [HideInInspector]
     public bool lazerUsed = false;
@@ -34,9 +35,13 @@ public class Player : Entity
         attack = GetComponent<EntityAttack>();
         entityRigidBody = GetComponent<Rigidbody2D>();
 
+        healthBar.SetHealthBar(maxHealth);
+
         entityFSM.entityProprieties = this;
 
         entityFSM.entitycurrentHealth = maxHealth;
       
     }
+
+    
 }

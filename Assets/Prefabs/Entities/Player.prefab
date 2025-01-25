@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projetile: {fileID: 4167012426717843661, guid: df0cb3f6d45c5f542bc14953dd30776b, type: 3}
+  lazer: {fileID: 6997873932228910969, guid: ebd4caa3bb4ec274cbd02a9cf7c8cd83, type: 3}
   attacking: 0
 --- !u!114 &1531843241128599244
 MonoBehaviour:
@@ -212,6 +213,8 @@ MonoBehaviour:
   lastMovingDirection: {x: 0, y: -1}
   spawnPoint: {x: 0, y: 0}
   movement: {fileID: 0}
+  healthBar: {fileID: 0}
+  lazerUsed: 0
 --- !u!114 &6140574673044163538
 MonoBehaviour:
   m_ObjectHideFlags: 0

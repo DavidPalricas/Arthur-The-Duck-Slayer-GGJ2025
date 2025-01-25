@@ -66,7 +66,6 @@ public class EnemyMovement : MonoBehaviour
     /// </returns>
     private bool IsAttackDirection(Vector2 enemyDirection)
     {    
-        Debug.Log(enemyDirection);
         foreach (var attackDirection in attackDirections)
         {
             if (attackDirection == enemyDirection)
