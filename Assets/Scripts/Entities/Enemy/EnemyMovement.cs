@@ -65,7 +65,8 @@ public class EnemyMovement : MonoBehaviour
     ///   <c>true</c> if the current enemy direction is an attak direction; otherwise, <c>false</c>.
     /// </returns>
     private bool IsAttackDirection(Vector2 enemyDirection)
-    {
+    {    
+        Debug.Log(enemyDirection);
         foreach (var attackDirection in attackDirections)
         {
             if (attackDirection == enemyDirection)
@@ -96,10 +97,15 @@ public class EnemyMovement : MonoBehaviour
 
         LayerMask playerLayer = LayerMask.GetMask("Default");
 
+        if (!IsAttackDirection(Utils.GetUnitaryVector(directionToPlayer))){
+
+            return false;
+        }
+
         RaycastHit2D[] hits = Physics2D.RaycastAll(raycastOrigin, directionToPlayer, rayCastDistance, playerLayer);
 
         // The next line is only used for debugging purposes
-       // Debug.DrawRay(raycastOrigin, directionToPlayer.normalized * rayCastDistance, Color.yellow);
+       Debug.DrawRay(raycastOrigin, directionToPlayer.normalized * rayCastDistance, Color.yellow);
 
         foreach (RaycastHit2D hit in hits)
         {   
@@ -123,7 +129,7 @@ public class EnemyMovement : MonoBehaviour
     public bool EnemyIsReadyToAttack(Vector2 directionToPlayer)
     {
         // Check if the enemy is attacking or the conditions to attack are met
-        if (PlayerNear(directionToPlayer) && IsAttackDirection(Utils.GetUnitaryVector(directionToPlayer)))
+        if (PlayerNear(directionToPlayer))
         {   
             // Stop the enemy's movement to attack
             enemyRigidBody.velocity = Vector2.zero;

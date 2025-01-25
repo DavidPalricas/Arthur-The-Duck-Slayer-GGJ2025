@@ -62,6 +62,13 @@ public class EntityMovementState : EntityStateBase
 
             return;
         }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            player.lazerUsed = true;
+            entityFSM.ChangeState(new EntityAttackState(entityFSM));
+
+            return;
+        }
 
         UpdateAnimator();
     }

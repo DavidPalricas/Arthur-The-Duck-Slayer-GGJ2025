@@ -18,6 +18,10 @@ public class Player : Entity
     [HideInInspector]
     public PlayerMovement movement;
 
+
+    [HideInInspector]
+    public bool lazerUsed = false;
+
     /// <summary>
     /// The Start method is called before the first frame update (Unity Method).
     /// In this method, we are setting the player's spawn point, and initializing the player's attributes.

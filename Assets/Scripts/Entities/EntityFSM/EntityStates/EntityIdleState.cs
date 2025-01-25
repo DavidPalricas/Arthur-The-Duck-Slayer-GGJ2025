@@ -94,6 +94,14 @@ public class EntityIdleState : EntityStateBase
         if (Input.GetKeyDown(KeyCode.Space))
         {
             entityFSM.ChangeState(new EntityAttackState(entityFSM));
+
         }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            player.lazerUsed = true;
+            entityFSM.ChangeState(new EntityAttackState(entityFSM));
+            return;
+        }
+
     }
 }
