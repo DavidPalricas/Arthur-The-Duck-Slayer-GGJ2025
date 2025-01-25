@@ -41,6 +41,8 @@ public class Enemy : Entity
 
         attack = GetComponent<EntityAttack>();
 
+        animator = GetComponent<Animator>();
+
         entityFSM.entityProprieties = this;
         entityFSM.entitycurrentHealth = maxHealth;
         entityFSM.entityProprieties.entityRigidBody = GetComponent<Rigidbody2D>();
