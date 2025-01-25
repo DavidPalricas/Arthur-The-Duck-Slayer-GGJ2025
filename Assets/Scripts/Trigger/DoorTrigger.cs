@@ -7,11 +7,29 @@ public class DoorTrigger : MonoBehaviour
     [SerializeField]
     private GameObject door;
 
+    private bool playerEntered;
+
+
+    private void Update()
+    {
+        if (playerEntered && Input.GetKeyDown(KeyCode.E)) {
+            Destroy(door);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            playerEntered = false;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
+        if (collision.CompareTag("Player"))
         {
-            Destroy(door);
+            playerEntered = true;
         }
     }
 }
