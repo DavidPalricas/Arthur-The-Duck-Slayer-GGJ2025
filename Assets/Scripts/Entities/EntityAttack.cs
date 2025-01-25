@@ -146,7 +146,7 @@ public class EntityAttack : MonoBehaviour
                 if (hit.collider.CompareTag("Enemy"))
                 {
                     Debug.Log("Enemy hit");
-                    hit.collider.GetComponent<EntityFSM>().entitycurrentHealth -= (int)player.attackDamage;
+                    hit.collider.GetComponent<EntityFSM>().entitycurrentHealth -= (int)player.attackDamage * 5;
                 }
                 else if (hit.collider.CompareTag("Object"))
                 {

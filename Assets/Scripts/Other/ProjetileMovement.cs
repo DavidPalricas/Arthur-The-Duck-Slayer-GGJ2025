@@ -30,6 +30,12 @@ public class ProjetileMovement : MonoBehaviour
     [HideInInspector]
     public Vector2 attackDirection;
 
+
+
+    private const int ENEMYDAMAGE = 4;
+
+    private const int PLAYERDAMAGE = 5;
+
     /// <summary>
     /// The Awake method is called when the script instance is being loaded (Unity Method).
     /// In this method, the projetileRigidBody variable is initialized.
@@ -105,8 +111,7 @@ public class ProjetileMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            int attackDamage = (int)enemy.attackDamage;
-            enemy.entityFSM.entitycurrentHealth -= attackDamage;
+            enemy.entityFSM.entitycurrentHealth -= PLAYERDAMAGE;
         }
 
         return true;
@@ -133,8 +138,7 @@ public class ProjetileMovement : MonoBehaviour
         {
             Player player = collision.gameObject.GetComponent<Player>();
 
-            int attackDamage = (int)player.attackDamage;
-            player.entityFSM.entitycurrentHealth -= attackDamage;
+            player.entityFSM.entitycurrentHealth -= ENEMYDAMAGE;
 
             player.healthBar.UpdateHealth(player.entityFSM.entitycurrentHealth);
         }
