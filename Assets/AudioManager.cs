@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip doorBreak;
     public AudioClip enemyDeath;
     public AudioClip shoot;
+    public AudioClip laser;
 
     private void Start()
     {

@@ -119,7 +119,6 @@ public class EntityAttackState : EntityStateBase
         }
 
         playerAttack.Attack(playerAttackDirection, playerClass.attackCooldown);
-        AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-        audioManager.PlaySFX(audioManager.shoot);
+        
     }
 }
