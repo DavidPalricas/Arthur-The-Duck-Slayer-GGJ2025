@@ -23,6 +23,7 @@ public class EnemyChaseState : EntityStateBase
     public override void Enter()
     {
         // Debug.Log("Entering Chase State");
+        entityAnimator = entityFSM.entityProprieties.animator;
     }
 
     /// <summary>
@@ -102,5 +103,12 @@ public class EnemyChaseState : EntityStateBase
     public override void Exit()
     {
         // Debug.Log("Exiting Chase State");
+    }
+
+    protected override void UpdateAnimator()
+    {
+        entityFSM.entityProprieties.animator.SetFloat("Horizontal", directionToPlayer.x);
+        entityFSM.entityProprieties.animator.SetFloat("Vertical", directionToPlayer.y);
+        entityFSM.entityProprieties.animator.SetFloat("Speed", directionToPlayer.sqrMagnitude);
     }
 }

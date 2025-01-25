@@ -38,4 +38,8 @@ public abstract class Entity : MonoBehaviour
     [HideInInspector]
     public Vector2 lastMovingDirection = Vector2.down;
 
+
+    [HideInInspector]
+    public Animator animator;
+
 }

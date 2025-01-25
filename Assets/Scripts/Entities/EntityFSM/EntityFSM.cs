@@ -93,6 +93,7 @@ public abstract class EntityStateBase : IState
     /// The entityFSM property represents the Finite State Machine of the entity.
     /// </summary>
     protected EntityFSM entityFSM;
+    protected Animator entityAnimator;
 
     /// <summary>
     /// Creates a new instance of the <see cref="EntityStateBase"/> class.
