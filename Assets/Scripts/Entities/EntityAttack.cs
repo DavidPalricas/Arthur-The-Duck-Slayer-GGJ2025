@@ -18,7 +18,10 @@ public class EntityAttack : MonoBehaviour
     private Player player;
 
 
-    private float lazerCoolDown = 30f;
+    private float currentLazerCoolDown;
+
+
+    private const float LAZERCOOLDOWN = 2f;
 
 
     private void Awake()
@@ -28,9 +31,10 @@ public class EntityAttack : MonoBehaviour
 
     private void Update()
     {
-        if (player != null && lazerCoolDown < 2f)
+        if (player != null && currentLazerCoolDown < 2f)
         {
-            lazerCoolDown += Time.deltaTime;
+            currentLazerCoolDown += Time.deltaTime;
+            currentLazerCoolDown = Mathf.Clamp(LAZERCOOLDOWN, 0, 2f);
         }
     }
     /// <summary>
@@ -67,10 +71,10 @@ public class EntityAttack : MonoBehaviour
             {
                 player.lazerUsed = false;
 
-                if (lazerCoolDown == 30f)
+                if (currentLazerCoolDown == LAZERCOOLDOWN)
                 {
                     LazerAttack(attackDirection, attackCoolDown);
-                    lazerCoolDown = 0f;
+                    currentLazerCoolDown = 0f;
                 }
                 else
                 {
@@ -110,11 +114,13 @@ public class EntityAttack : MonoBehaviour
 
         BoxCollider2D playerCollider = player.GetComponent<BoxCollider2D>();
 
+        // Calcula a posição na borda do collider do jogador, na direção do ataque
+        Vector3 lazerPosition = playerCollider.bounds.center + (Vector3)(attackDirection.normalized * (playerCollider.bounds.extents.magnitude));
 
-        Vector3 lazerPosition = playerCollider.bounds.center + (Vector3)attackDirection.normalized;
-
+        // Cria o novo laser na posição ajustada
         GameObject newLazer = Instantiate(lazer, lazerPosition, Quaternion.identity);
 
+        // Define a rotação do laser
         SetLazerRotation(newLazer, attackDirection);
 
         Vector2 raycastOrigin = (Vector2)lazerPosition;
@@ -123,9 +129,7 @@ public class EntityAttack : MonoBehaviour
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(raycastOrigin, attackDirection, rayCastDistance, playerLayer);
 
-
-
-        // The next line is only used for debugging purposes
+        // Linha para debug visual
         Debug.DrawRay(raycastOrigin, attackDirection.normalized * rayCastDistance, Color.blue);
 
         foreach (RaycastHit2D hit in hits)
@@ -133,7 +137,6 @@ public class EntityAttack : MonoBehaviour
             Debug.Log(hit.collider);
             if (hit.collider != null)
             {
-
                 if (hit.collider.CompareTag("Enemy"))
                 {
                     Debug.Log("Enemy hit");
@@ -147,10 +150,11 @@ public class EntityAttack : MonoBehaviour
             }
         }
 
-        Destroy(newLazer, 1.5f);
+        Destroy(newLazer, 0.1f);
 
         HandleAttackCooldown(attackCoolDown);
     }
+
 
 
     private void SetLazerRotation(GameObject newLazer,Vector2 attackDirection)
