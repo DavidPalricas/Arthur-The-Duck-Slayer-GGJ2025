@@ -22,7 +22,9 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector]
     public Vector2 speedVector;
 
-    private float dashCoolDown = 1f; 
+
+    private const float DASHCOOLDOWN = 1f;
+    private float currentDashCoolDown = DASHCOOLDOWN; 
     private readonly float dashDuration = 0.2f; 
     private bool isDashing = false;
     private float dashTimer = 0f; 
@@ -41,10 +43,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!isDashing && dashCoolDown < 1f)
+        if (!isDashing && currentDashCoolDown < DASHCOOLDOWN)
         {
-            dashCoolDown += Time.deltaTime;
-            dashCoolDown = Mathf.Clamp(dashCoolDown, 0, 2f);
+            currentDashCoolDown += Time.deltaTime;
+            currentDashCoolDown = Mathf.Clamp(currentDashCoolDown, 0, DASHCOOLDOWN);
         }
 
         if (isDashing)
@@ -66,10 +68,10 @@ public class PlayerMovement : MonoBehaviour
     {
         speedVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
-        if (Input.GetKey(KeyCode.LeftShift) && dashCoolDown >= 1f && speedVector != Vector2.zero && !isDashing)
+        if (Input.GetKey(KeyCode.LeftShift) && currentDashCoolDown >= DASHCOOLDOWN && speedVector != Vector2.zero && !isDashing)
         {
             isDashing = true; 
-            dashCoolDown = 0f; 
+            currentDashCoolDown = 0f; 
             player.velocity = 4 * speed * speedVector; 
         }
         else if (!isDashing)
