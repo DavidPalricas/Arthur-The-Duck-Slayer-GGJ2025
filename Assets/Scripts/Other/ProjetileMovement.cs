@@ -31,10 +31,7 @@ public class ProjetileMovement : MonoBehaviour
     public Vector2 attackDirection;
 
 
-
-    private const int ENEMYDAMAGE = 4;
-
-    private const int PLAYERDAMAGE = 5;
+    public int entityDamage;
 
     /// <summary>
     /// The Awake method is called when the script instance is being loaded (Unity Method).
@@ -111,7 +108,7 @@ public class ProjetileMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            enemy.entityFSM.entitycurrentHealth -= PLAYERDAMAGE;
+            enemy.entityFSM.entitycurrentHealth -= entityDamage;
         }
 
         return true;
@@ -138,7 +135,7 @@ public class ProjetileMovement : MonoBehaviour
         {
             Player player = collision.gameObject.GetComponent<Player>();
 
-            player.entityFSM.entitycurrentHealth -= ENEMYDAMAGE;
+            player.entityFSM.entitycurrentHealth -= entityDamage;
 
             player.healthBar.UpdateHealth(player.entityFSM.entitycurrentHealth);
         }

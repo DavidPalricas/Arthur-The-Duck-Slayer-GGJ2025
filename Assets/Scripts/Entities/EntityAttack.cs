@@ -108,6 +108,8 @@ public class EntityAttack : MonoBehaviour
 
         newProjetileMovement.attackDirection = attackDirection;
 
+        newProjetileMovement.entityDamage = (int)GetComponent<EntityFSM>().entityProprieties.attackDamage;
+
         newProjetileMovement.playerThrown = GetComponent<EntityFSM>().entityProprieties is Player;
 
         HandleAttackCooldown(attackCoolDown);
