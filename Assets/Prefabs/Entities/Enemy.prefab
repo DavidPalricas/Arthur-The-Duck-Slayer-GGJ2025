@@ -189,6 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projetile: {fileID: 4167012426717843661, guid: 1d5852faad7a78a4da3fd26c03b94c72, type: 3}
   lazer: {fileID: 0}
+  lazerCoolDownLabel: {fileID: 0}
   attacking: 0
 --- !u!114 &2553013250733268583
 MonoBehaviour:
@@ -203,9 +204,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  speed: 2
+  speed: 4
   attackDamage: 4
-  attackCooldown: 1
+  attackCooldown: 0.5
   entityFSM: {fileID: 937375945071101158}
   entityRigidBody: {fileID: 0}
   attack: {fileID: 8877527601936486357}

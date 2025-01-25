@@ -56,6 +56,9 @@ public class EntityMovementState : EntityStateBase
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+            audioManager.PlaySFX(audioManager.shoot);
+
             entityFSM.entityProprieties.lastMovingDirection = player.movement.speedVector;
             player.movement.StopPlayer();
             entityFSM.ChangeState(new EntityAttackState(entityFSM));
