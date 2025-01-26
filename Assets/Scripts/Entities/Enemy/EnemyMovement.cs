@@ -42,6 +42,8 @@ public class EnemyMovement : MonoBehaviour
                                                     Vector2.up, 
                                                     Vector2.down};
 
+    private Enemy enemy;
+
     /// <summary>
     /// The Awake method is called when the script instance is being loaded (Unity Method).
     /// In this method, the enemy,speed,player, willCollide and IsInHorde variables are initialized.
@@ -51,7 +53,7 @@ public class EnemyMovement : MonoBehaviour
         playerRigidBody = GameObject.Find("Player").GetComponent<Rigidbody2D>();
         enemyRigidBody = GetComponent<Rigidbody2D>();
 
-        Enemy enemy = GetComponent<Enemy>();
+        enemy = GetComponent<Enemy>();
         EntityFSM enemyFSM = enemy.entityFSM;
 
         enemyFSM.ChangeState(new EntityIdleState(enemyFSM));
@@ -85,10 +87,10 @@ public class EnemyMovement : MonoBehaviour
     ///   <c>true</c> if the raycast hits an object tagged as "Player"; otherwise, <c>false</c>.
     /// </returns>
     private bool PlayerNear(Vector2 directionToPlayer)
-    {   
-        const float RANGETOATTACK = 5f;
+    {
+        float rangeToAttack = enemy.isBoss ? 20f : 5f;
 
-        float rayCastDistance = RANGETOATTACK;
+        float rayCastDistance = rangeToAttack;
 
         BoxCollider2D enemyCollider = enemyRigidBody.GetComponent<BoxCollider2D>();
 

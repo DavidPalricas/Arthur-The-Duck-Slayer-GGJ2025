@@ -33,6 +33,8 @@ public class ProjetileMovement : MonoBehaviour
 
     public int entityDamage;
 
+    public bool isBoss = false;
+
     /// <summary>
     /// The Awake method is called when the script instance is being loaded (Unity Method).
     /// In this method, the projetileRigidBody variable is initialized.
@@ -138,6 +140,11 @@ public class ProjetileMovement : MonoBehaviour
             player.entityFSM.entitycurrentHealth -= entityDamage;
 
             player.healthBar.UpdateHealth(player.entityFSM.entitycurrentHealth);
+        }
+
+        if (collision.gameObject.CompareTag("Projetile") && isBoss)
+        {
+            Destroy(collision.gameObject);
         }
 
         return true;

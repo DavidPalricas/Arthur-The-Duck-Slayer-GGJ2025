@@ -112,6 +112,10 @@ public class EntityAttack : MonoBehaviour
 
         newProjetileMovement.playerThrown = GetComponent<EntityFSM>().entityProprieties is Player;
 
+        if (GetComponent<Enemy>() != null) {
+            newProjetileMovement.isBoss = GetComponent<Enemy>().isBoss;
+        }
+        
         HandleAttackCooldown(attackCoolDown);
     }
 
