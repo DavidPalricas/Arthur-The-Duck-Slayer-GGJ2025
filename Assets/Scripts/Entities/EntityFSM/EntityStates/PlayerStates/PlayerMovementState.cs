@@ -22,9 +22,9 @@ public class EntityMovementState : EntityStateBase
     /// It overrides the Enter method from the base class (EntityStateBase).
     /// </summary>
     public override void Enter() 
-    {    
+    {
+        entityAnimator = entityFSM.entityProprieties.animator;
         player = (Player)entityFSM.entityProprieties;
-
         UpdateAnimator();
 
         // Debug.Log("Entering Move State");
@@ -84,5 +84,13 @@ public class EntityMovementState : EntityStateBase
     public override void Exit()
     {
         // Debug.Log("Exiting Move State");
+    }
+    protected override void UpdateAnimator()
+    {
+        Vector2 speedVector = player.movement.speedVector;
+
+        entityAnimator.SetFloat("Horizontal", speedVector.x);
+        entityAnimator.SetFloat("Vertical", speedVector.y);
+        entityAnimator.SetFloat("Speed", speedVector.sqrMagnitude);
     }
 }
