@@ -17,6 +17,8 @@ public class EntityIdleState : EntityStateBase
     /// </summary>
     public override void Enter()
     {   
+        entityAnimator = entityFSM.entityProprieties.animator;
+        UpdateAnimator();
         entityFSM.entityProprieties.entityRigidBody.velocity = Vector2.zero;
     }
 
@@ -106,5 +108,13 @@ public class EntityIdleState : EntityStateBase
             return;
         }
 
+    }
+    protected override void UpdateAnimator()
+    {
+        Vector2 entityDirection = Utils.GetUnitaryVector(entityFSM.entityProprieties.lastMovingDirection);
+
+        entityAnimator.SetFloat("Horizontal", entityDirection.x);
+        entityAnimator.SetFloat("Vertical", entityDirection.y);
+        entityAnimator.SetFloat("Speed", 0);
     }
 }

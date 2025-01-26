@@ -37,9 +37,13 @@ public class Player : Entity
 
         healthBar.SetHealthBar(maxHealth);
 
+        animator = GetComponent<Animator>();
+
         entityFSM.entityProprieties = this;
 
         entityFSM.entitycurrentHealth = maxHealth;
+
+      
       
     }
 

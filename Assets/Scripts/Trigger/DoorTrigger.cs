@@ -15,7 +15,8 @@ public class DoorTrigger : MonoBehaviour
         if (playerEntered && Input.GetKeyDown(KeyCode.E)) {
             AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
             audioManager.PlaySFX(audioManager.doorBreak);
-            Destroy(door);
+            door.SetActive(false);
+            Destroy(gameObject);
         }
     }
 
