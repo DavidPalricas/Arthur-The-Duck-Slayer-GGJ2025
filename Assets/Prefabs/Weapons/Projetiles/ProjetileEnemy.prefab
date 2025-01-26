@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3353051165356585218}
   m_Layer: 0
   m_Name: ProjetileEnemy
-  m_TagString: Untagged
+  m_TagString: Projetile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   speed: 10
   playerThrown: 0
   attackDirection: {x: 0, y: 0}
+  entityDamage: 0
 --- !u!50 &-9080575908431055524
 Rigidbody2D:
   serializedVersion: 4

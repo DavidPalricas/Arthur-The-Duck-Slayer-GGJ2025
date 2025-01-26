@@ -29,8 +29,6 @@ public class BossObserver : MonoBehaviour
         {
             int bossHealth = boss.GetComponent<EntityFSM>().entitycurrentHealth;
 
-            Debug.Log("Boss Health: " + bossHealth);
-
             if (bossHealth <= 0)
             {
                 bossHealthBar.gameObject.SetActive(false);
