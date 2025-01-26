@@ -2,6 +2,6 @@
 ## Theme: Bubbles
 ## Title: Arthur The Duck Slayer
 ![Cover of the Game](Images/Banner.png)
-## Synopse
+## Synopsis 
 Dive into the thrilling adventure of Arthur and Bubbles, his trusty bubble-blasting weapon, in a world overrun by crazed ducks! Battle waves of mini-ducks and bubble-filled challenges as you uncover the secrets of the Duck God (DG), a rubbery deity bent on turning the world into a chaotic aquatic empire. In this action-packed shooter, Arthur must conquer obstacles, harness the power of Bubbles, and face DG to save humanity... one bubble at a time.
 
