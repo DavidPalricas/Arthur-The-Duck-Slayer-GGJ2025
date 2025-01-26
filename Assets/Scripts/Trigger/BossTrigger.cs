@@ -23,6 +23,10 @@ public class BossTrigger : MonoBehaviour
             bossHorde.enabled = true;
             bossHorde.SpawnBoss();
 
+            AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+            audioManager.PlaySFX(audioManager.finalBoss);
+            audioManager.StopMusic(audioManager.ambient);
+
             bossObserver.enabled = true;
             
             Destroy(gameObject);

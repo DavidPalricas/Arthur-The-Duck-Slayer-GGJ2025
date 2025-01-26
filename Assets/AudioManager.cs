@@ -31,8 +31,13 @@ public class AudioManager : MonoBehaviour
             SFXSource.pitch = UnityEngine.Random.Range(1.0f, 1.5f);
             SFXSource.PlayOneShot(clip);
         }
-
-        SFXSource.PlayOneShot(clip);  // Toca o efeito sonoro uma vez
+        else if(clip == enemyDeath)
+        {
+            SFXSource.pitch = UnityEngine.Random.Range(1.0f, 1.5f);
+            SFXSource.PlayOneShot(clip);
+        }
+        else
+            SFXSource.PlayOneShot(clip);  
     }
 
     // Método para tocar a música (se necessário)
@@ -40,6 +45,14 @@ public class AudioManager : MonoBehaviour
     {
         musicSource.clip = clip;
         musicSource.Play();
+    }
+
+    public void StopMusic(AudioClip clip)
+    {
+        if (musicSource.isPlaying && musicSource.clip == clip)
+        {
+            musicSource.Stop();
+        }
     }
 
 }
