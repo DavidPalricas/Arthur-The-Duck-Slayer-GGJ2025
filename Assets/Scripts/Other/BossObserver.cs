@@ -1,6 +1,7 @@
 
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossObserver : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class BossObserver : MonoBehaviour
             if (bossHealth <= 0)
             {
                 bossHealthBar.gameObject.SetActive(false);
-                Destroy(gameObject);
+                SceneManager.LoadScene("EndGame");
 
                 return;
             }

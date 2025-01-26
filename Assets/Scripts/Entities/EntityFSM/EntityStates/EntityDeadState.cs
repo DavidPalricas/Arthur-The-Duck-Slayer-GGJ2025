@@ -65,6 +65,8 @@ public class EntityDeadState : EntityStateBase
     protected override void ExecuteEnemyLogic()
     {
         Enemy enemyClass = (Enemy)entityFSM.entityProprieties;
+        AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        audioManager.PlaySFX(audioManager.enemyDeath);
 
         if (enemyClass.isBoss)
         {    
@@ -94,7 +96,10 @@ public class EntityDeadState : EntityStateBase
     /// It waits for 4 seconds and then sets the player's health to the maximum value, updates the health bar, and sets the player's position to the spawn point.
     /// </summary>
     private void RespawnPlayer()
-    {
+    {   
+        SpriteRenderer playerSpriterender = entityFSM.GetComponent<SpriteRenderer>();
+        playerSpriterender.enabled = false;
+
         entityFSM.StartCoroutine(Utils.Wait(3f, () =>
         {    
             Player player = entityFSM.entityProprieties as Player;
@@ -106,6 +111,8 @@ public class EntityDeadState : EntityStateBase
             player.entityRigidBody.transform.position = player.spawnPoint;
 
             player.healthBar.SetHealthBar(player.maxHealth);
+
+            playerSpriterender.enabled = true;
 
             entityFSM.ChangeState(new EntityIdleState(entityFSM));
         }));
